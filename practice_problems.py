@@ -14,9 +14,16 @@ Output: False
 
 def has_duplicates(product_ids):
     # Your implementation here
-    pass
+    seen = set()
+    for product_id in product_ids:
+        if product_id in seen:
+            return True
+        seen.add(product_id)
+    return False
 
-
+# A set is a good choice because it allows us to quickly check whether a product ID
+# has already been seen. Checking membership and adding an item to a set are O(1)
+# on average, so the overall solution runs in O(n) time.
 """
 Problem 2: Order Manager
 
@@ -33,15 +40,18 @@ task_queue.remove_oldest_task() → "Email follow-up"
 class TaskQueue:
     def __init__(self):
         # Your initialization here
-        pass
+        self.tasks = []
 
     def add_task(self, task):
-        pass
+        self.tasks.append(task)
 
     def remove_oldest_task(self):
-        pass
+        return self.tasks.pop(0)
 
-
+# A queue is appropriate because tasks need to be processed in the same order
+# they were added, following the FIFO (first-in, first-out) principle. Adding
+# to the end of a Python list is O(1) on average, while removing from the
+# front with pop(0) is O(n) because the remaining elements must be shifted.
 """
 Problem 3: Unique Value Counter
 
@@ -57,10 +67,13 @@ tracker.get_unique_count() → 2
 
 class UniqueTracker:
     def __init__(self):
-        pass
+        self.values = set()
 
     def add(self, value):
-        pass
+        self.values.add(value)
 
     def get_unique_count(self):
-        pass
+        return len(self.values)
+# A set is appropriate because it automatically stores only unique values,
+# making it easy to track which values have appeared. Adding a value and
+# checking the size of the set are O(1) on average, so each operation is fast.
